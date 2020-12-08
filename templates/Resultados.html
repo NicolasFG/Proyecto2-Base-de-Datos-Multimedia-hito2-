@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Chunte Face Recognition</title>
+    <link rel="stylesheet" href="static/css/master2.css">
+  </head>
+  <body>
+
+    <div class="login-box">
+      <img src="static/img/Logo_Chunte.png" class="avatar" alt="Avatar Image">
+      <h1></h1>
+      <form  >
+        
+        <p aling="center" >
+
+            + Se encontraron las siguientes imágenes:
+        
+        <label aling="center" for="username" >  </label>
+        </p>
+
+        <h2></h2>
+        <h3></h3>
+
+        <div></div>
+        {% for i in r %}
+        
+        <div >
+        <img id="fondo0" src="/static/dataset/{{i}}"width="100" height="100" ></img>
+        <div></div>
+        </div>
+        {% endfor %}
+      </form>
+    </div>
+  </body>
+</html>
