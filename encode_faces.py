@@ -2,7 +2,6 @@ from rtree import index
 from os import listdir
 from os.path import isfile, isdir
 import cv2
-from rtree import index
 import face_recognition
 import heapq
 import json
@@ -37,8 +36,7 @@ def CreacionVectorCaracteristico():
     vectores={}
     for carpeta in listdir(rutaDeLasImagenes):
         for objeto in listdir(rutaDeLasImagenes+carpeta+'/'):
-            print(objeto)
-            print(i)
+            
             i+=1
 
             ObjetoImagen = face_recognition.load_image_file(rutaDeLasImagenes+carpeta+'/'+objeto)
@@ -119,7 +117,7 @@ def KnnRtree(Q,k):
 
 def KnnSecuencial(Q,k):
     ##Busqueda SECUENCIAL tomando las 2 distancias pedidas y al final mostrar ambos resultados
-    tiempo_inicial = time()
+    
    
     with open('vectors.json',errors='ignore',encoding='utf8') as contenido:
         datos=json.load(contenido)
@@ -130,7 +128,8 @@ def KnnSecuencial(Q,k):
     #Listas de distancias
     DistanciaMan=[]
     DistanciaEuc=[]
-    
+
+    tiempo_inicial = time()
     #Recorro el vector caracteristico de toda mi dataset
     for i in datos:
 
@@ -151,22 +150,10 @@ def KnnSecuencial(Q,k):
         if len(DistanciaEuc)>k:
                 heapq.heappop(DistanciaEuc)
 
-    print(DistanciaEuc)
-    print("\n")
-    print(DistanciaMan)
-
 
     tiempo_final = time()
     tiempo= tiempo_final - tiempo_inicial
 
-    print("DIstancia Manhattan")
-    for i in DistanciaMan:
-        print(i[0],end=' ')
-        print(i[1])
-    print("Distancia Euclidiana")
-    for i in DistanciaEuc:
-        print(i[0],end=' ')
-        print(i[1])
     print("Tiempo Knn secuencial ",tiempo)
 
 
@@ -178,15 +165,5 @@ def AccederAImagenEnCadaCarpeta(cadena):
     result = string.rstrip('_')
     return result+"/"
 
-
-
-
-
-##Imagen para la prueba
-aux = face_recognition.load_image_file("foto3.jpg")
-aux_1=face_recognition.face_encodings(aux)[0]
-
-KnnSecuencial(ConvertirLista(aux_1),10)
-KnnRtree(ConvertirLista(aux_1),2)
 
 #CreacionVectorCaracteristico()
